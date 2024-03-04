@@ -1,32 +1,26 @@
-// import { useNavigate } from 'react-router-dom'
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setData } from "@/stores/actions";
+import { useEffect, useState } from "react";
+import { fetchPlanets } from "@/utils/useFetch";
 import StickyHeadTable from "@/components/ContentTable";
 
 export const Home = () => {
-    const dispatch = useDispatch();
-    const { data, loading, error } = useSelector((state) => state);
-
-//   const [data, setData] = useState(null);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState(null);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("https://swapi.info/api/planets")
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch(setData(data));
-        // console.log(data);
-        // setLoading(false);
-      })
-      .catch((error) => {
+    const fetchDataAndDispatch = async () => {
+      try {
+        let isLocal = JSON.parse(localStorage.getItem("swapi-planets")) || [];
+        if (isLocal.length === 0) {
+          const response = await fetchPlanets("https://swapi.info/api/planets");
+          setData(response);
+        } else {
+          setData(isLocal);
+        }
+      } catch (error) {
         console.error("Error fetching data:", error);
-        // setError(error);
-        // setLoading(false);
-      });
-  }, [dispatch]);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-  return <>{<StickyHeadTable data={data} />}</>;
+      }
+    };
+    fetchDataAndDispatch();
+  }, []);
+
+  return <>{data && <StickyHeadTable data={data} />}</>;
 };

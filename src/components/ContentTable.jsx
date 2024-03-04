@@ -33,7 +33,7 @@ const columns = [
 ];
 
 export default function StickyHeadTable({ data }) {
-  console.log(data);
+//   console.log(data);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
