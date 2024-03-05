@@ -5,11 +5,13 @@ import Grid from "@mui/material/Grid";
 import { Header } from "@/components/Header";
 import { fetchPlanets } from "@/utils/useFetch";
 import { Item } from "@/components/Item";
+import { NotFound } from "@/components/NotFound";
 
 export const Details = () => {
   const { planetName } = useParams();
   const [data, setData] = useState([]);
   const [planets, setPlanets] = useState([]);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +25,7 @@ export const Details = () => {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
+        setError(true);
       }
     };
 
@@ -32,6 +35,11 @@ export const Details = () => {
   useEffect(() => {
     const filteredPlanets = data.filter((obj) => obj.name === planetName);
     setPlanets(filteredPlanets);
+    if (filteredPlanets.length === 0) {
+      setError(true);
+    } else {
+      setError(false);
+    }
   }, [data, planetName]);
 
   useEffect(() => {
@@ -61,50 +69,56 @@ export const Details = () => {
   }, [planets]);
 
   return (
-    <section className="details">
-      {planets.map((planet, index) => (
-        <Box sx={{ flexGrow: 1 }} key={index}>
-          <Header header={planet.name} />
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={4}>
-              <Item title="Diameter" child={planet.diameter} />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Item title="Population" child={planet.population} />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Item title="Climate" child={planet.climate} />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Item title="Terrain" child={planet.terrain} />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Item title="Gravity" child={planet.gravity} />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Item title="Orbital Period" child={planet.orbital_period} />
-            </Grid>
-            <Grid item xs={12}>
-              <Item
-                title="Residents"
-                child={
-                  planet.residents.length > 0 ? (
-                    <>
-                      <ul>
-                        {planet.residents.map((resident, index) => (
-                          <li key={index}>{resident}, </li>
-                        ))}
-                      </ul>
-                    </>
-                  ) : (
-                    "No resident found"
-                  )
-                }
-              ></Item>
-            </Grid>
-          </Grid>
-        </Box>
-      ))}
-    </section>
+    <>
+      {!error ? (
+        <section className="details">
+          {planets.map((planet, index) => (
+            <Box sx={{ flexGrow: 1 }} key={index}>
+              <Header header={planet.name} />
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Item title="Diameter" child={planet.diameter} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Item title="Population" child={planet.population} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Item title="Climate" child={planet.climate} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Item title="Terrain" child={planet.terrain} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Item title="Gravity" child={planet.gravity} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Item title="Orbital Period" child={planet.orbital_period} />
+                </Grid>
+                <Grid item xs={12}>
+                  <Item
+                    title="Residents"
+                    child={
+                      planet.residents.length > 0 ? (
+                        <>
+                          <ul>
+                            {planet.residents.map((resident, index) => (
+                              <li key={index}>{resident}, </li>
+                            ))}
+                          </ul>
+                        </>
+                      ) : (
+                        "No resident found"
+                      )
+                    }
+                  ></Item>
+                </Grid>
+              </Grid>
+            </Box>
+          ))}
+        </section>
+      ) : (
+        <NotFound />
+      )}
+    </>
   );
 };

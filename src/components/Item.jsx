@@ -4,13 +4,12 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 export const Item = ({ title, child }) => {
   return (
-    <Card
-      variant="outlined"
-      style={{ minWidth: "250px", margin: "10px" }}
-    >
+    <Card variant="outlined" style={{ minWidth: "250px", margin: "10px" }}>
       <CardHeader title={title} />
       <CardContent>
-        <Typography variant="body1">{child}</Typography>
+        <Typography variant="body1" component={"span"}>
+          {child}
+        </Typography>
       </CardContent>
     </Card>
   );
