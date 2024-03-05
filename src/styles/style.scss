@@ -1,5 +1,95 @@
-$primary: red;
-
+@use "_variables.scss" as *;
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+  height: 100%;
+}
 #root {
-    background-color: $primary;
+  background-color: $bg_color;
+  min-height: 100vh;
+}
+section {
+  padding: 10px 20px;
+}
+header {
+  h2 {
+    text-align: center;
+    opacity: 0;
+    animation: slideIn;
+    animation-duration: 1s;
+    transform: translateY(-100%);
+    animation-fill-mode: forwards;
+    color: $text_color;
+  }
+}
+.star-wars__fade {
+  position: relative;
+  width: 100%;
+  min-height: 10vh;
+  top: -25px;
+  background-image: linear-gradient(0deg, transparent, black 75%);
+  z-index: 1;
+}
+.star-wars {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 200px;
+  color: $text_color;
+  font-family: "Pathway Gothic One", sans-serif;
+  font-size: 500%;
+  font-weight: 600;
+  letter-spacing: 6px;
+  line-height: 150%;
+  perspective: 400px;
+  text-align: justify;
+  overflow: hidden;
+  .star-wars__crawl {
+    position: relative;
+    transform-origin: 50% 100%;
+    animation: crawl 200s linear;
+    width: 350px;
+    text-align: justify;
+  }
+}
+
+.hero__table {
+  padding: 20px 50px;
+}
+
+.details {
+  padding: 20px 50px;
+  .MuiCardHeader-title {
+    color: $text_secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    text-align: center;
+    font-size: 1rem;
+  }
+  .MuiTypography-body1 {
+    text-align: center;
+    font-size: 0.8rem;
+    ul {
+      text-align: left;
+    }
+  }
+}
+
+@media (min-width: 400px) {
+  header {
+    h2 {
+      font-size: 30px;
+    }
+  }
+  .details {
+    padding: 20px 50px;
+    .MuiCardHeader-title {
+      font-size: 1.5rem;
+    }
+    .MuiTypography-body1 {
+      font-size: 1.2rem;
+    }
+  }
 }

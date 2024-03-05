@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Paper from "@mui/material/Paper";
+import Card from "@mui/material/Card";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,37 +7,33 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-
-import { useNavigate } from "react-router-dom";
+import Typography from "@mui/material/Typography";
 
 const columns = [
-  { id: "name", label: "Name", minWidth: 100 },
+  { id: "name", label: "Name", minWidth: 70 },
   {
     id: "diameter",
     label: "Diameter",
-    minWidth: 100,
+    minWidth: 70,
     align: "center",
   },
   {
     id: "climate",
     label: "Climate",
-    minWidth: 100,
+    minWidth: 120,
     align: "center",
   },
   {
     id: "terrain",
     label: "Terrain",
-    minWidth: 100,
+    minWidth: 140,
     align: "center",
   },
 ];
 
-export default function StickyHeadTable({ data }) {
-//   console.log(data);
+export default function StickyHeadTable({ data, navigateTo }) {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
-  const navigate = useNavigate();
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -47,13 +43,9 @@ export default function StickyHeadTable({ data }) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  const handleNavigation = (direction) => {
-    // let id = direction.split("/").slice(-1);
-    // alert(id);
-    navigate(`/details/${direction}`);
-  };
+
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
+    <Card sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -62,9 +54,13 @@ export default function StickyHeadTable({ data }) {
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  style={{
+                    minWidth: column.minWidth,
+                    backgroundColor: "#333",
+                    color: "#fff",
+                  }}
                 >
-                  {column.label}
+                  <Typography variant="body1">{column.label}</Typography>
                 </TableCell>
               ))}
             </TableRow>
@@ -80,15 +76,13 @@ export default function StickyHeadTable({ data }) {
                     role="checkbox"
                     tabIndex={-1}
                     key={row.name}
-                    
-                    onClick={() => handleNavigation(row["name"])}
+                    onClick={() => navigateTo(row["name"])}
                   >
-                    {/* {row} */}
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {value}
+                          <Typography variant="body1">{value}</Typography>
                         </TableCell>
                       );
                     })}
@@ -99,7 +93,7 @@ export default function StickyHeadTable({ data }) {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 20, 30]}
+        rowsPerPageOptions={[5, 10, 30]}
         component="div"
         count={data.length}
         rowsPerPage={rowsPerPage}
@@ -107,6 +101,6 @@ export default function StickyHeadTable({ data }) {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </Paper>
+    </Card>
   );
 }

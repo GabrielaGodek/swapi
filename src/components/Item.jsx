@@ -1,14 +1,17 @@
-import Card from "react-bootstrap/Card";
-
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 export const Item = ({ title, child }) => {
   return (
-    <Card style={{ width: "200px" }}>
-      <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Text>
-          {child}
-        </Card.Text>
-      </Card.Body>
+    <Card
+      variant="outlined"
+      style={{ minWidth: "250px", margin: "10px" }}
+    >
+      <CardHeader title={title} />
+      <CardContent>
+        <Typography variant="body1">{child}</Typography>
+      </CardContent>
     </Card>
   );
 };

@@ -4,10 +4,10 @@ import { Details } from "@/pages/Details";
 
 const App = () => {
   return (
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/details/:planetName" element={<Details />} />
-      </Routes>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/details/:planetName" element={<Details />} />
+    </Routes>
   );
 };
 
