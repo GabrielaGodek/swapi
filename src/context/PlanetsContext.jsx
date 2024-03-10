@@ -2,10 +2,11 @@ import {
   createContext,
   useMemo,
   useState,
-  useCallback,
-  useEffect,
+  // useCallback,
+  // useEffect,
 } from "react";
 import { usePlanets } from "@/utils/usePlanets";
+import { useResidents } from "@/utils/useResidents";
 
 export const PlanetsContext = createContext({
   planets: [],
@@ -18,27 +19,14 @@ export const PlanetsContext = createContext({
 export const PlanetsContextProvider = ({ children }) => {
   const planets = usePlanets(true);
   const [currentPlanetName, setCurrentPlanetName] = useState("");
-  const [residents, setResidents] = useState("");
 
   const planet = useMemo(() => {
     return planets.find(
       (obj) => obj.name?.toLowerCase() === currentPlanetName?.toLowerCase()
     );
   }, [planets, currentPlanetName]);
-
-  const fetchResidents = useCallback(async () => {
-    const _residents = [];
-    for (const residentUrl of planet?.residents || []) {
-      const response = await fetch(residentUrl);
-      const residentData = await response.json();
-      _residents.push(residentData.name);
-    }
-    setResidents(_residents);
-  }, [planet]);
-
-  useEffect(() => {
-    fetchResidents();
-  }, [fetchResidents, currentPlanetName]);
+  
+  const residents = useResidents(currentPlanetName ? planet : null);
 
   return (
     <PlanetsContext.Provider
