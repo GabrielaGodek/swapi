@@ -1,10 +1,11 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "@/pages/Home";
 import { Details } from "@/pages/Details";
 import { NotFound } from "@/components/NotFound";
 import { PlanetsContextProvider } from "@/context/PlanetsContext";
 
-const App = () => {
+const App:React.FC = () => {
   return (
     <PlanetsContextProvider>
       <Routes>

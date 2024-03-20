@@ -1,10 +1,11 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
-
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-export const NotFound = () => {
+export const NotFound: React.FC = () => {
   const navigate = useNavigate();
+
   return (
     <div className="notFound">
       <Typography variant="h1" component="h2">404</Typography>
@@ -17,3 +18,5 @@ export const NotFound = () => {
     </div>
   );
 };
+
+
