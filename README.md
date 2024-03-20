@@ -1,16 +1,16 @@
 # Recruitment task: Gabriela Godek
 
 ## Installation
-
-1. Clone the repository `https://github.com/GabrielaGodek/swapi.git` and change directory `cd swapi`
-2. Install all dependencies `npm install` and run the application `npm run dev`
-3. Open app with `http://localhost:5173/` at your browser
+1. Clone the repository `https://github.com/GabrielaGodek/swapi.git` and open _swapi_ folder
+2. Run docker container with `npm run docker` command in your terminal.
+3. Open your browser and open `http://localhost:8080/`
 
 ## Dependencies
 
 - vite: `^5.1.4`
 - react: `^18.2.0`
 - react-router-dom: `^6.22.2`
+- typescript: `^5.2.2`
 - @mui/material: `^5.15.11`
 - bootstrap: `^5.3.3`
 - sass: `^1.71.1`

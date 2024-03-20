@@ -31,7 +31,7 @@ const columns = [
   },
 ];
 
-export default function StickyHeadTable({ data, navigateTo }) {
+export default function StickyHeadTable({ data, onRowClick }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -76,7 +76,7 @@ export default function StickyHeadTable({ data, navigateTo }) {
                     role="checkbox"
                     tabIndex={-1}
                     key={row.name}
-                    onClick={() => navigateTo(row["name"])}
+                    onClick={() => onRowClick(row["name"])}
                   >
                     {columns.map((column) => {
                       const value = row[column.id];
