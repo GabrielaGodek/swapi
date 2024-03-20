@@ -1,4 +1,4 @@
-# Recruitment task: Gabriela Godek
+# SWAPI Application
 
 ## Installation
 
@@ -25,6 +25,7 @@ During the design phase of the React project, a decision was made regarding how 
    Data stored in localStorage is persistently saved on the user's device, meaning it isn't lost after a page refresh or browser closure. This ensures data continuity even in the event of application failure.
 3. **Performance:**
    Storing data directly in localStorage may contribute to improved application performance by reducing the number of state synchronization operations between Redux and localStorage.
+
 
 ## Preview
 
